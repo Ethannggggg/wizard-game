@@ -1,0 +1,21 @@
+Upgrade:
+- exp bar is to upgrade your waepon when you are at the end of the level after defeating the boss (total 3 level, each level 3 stage)
+- add more 3 level, more enemy and stronger enemey
+  level 1:(now) -> dark lord
+  level 2: background-> laputa, boss -> Colonel Muska
+  level 3: heaven, boss -> god (mnay skill)
+
+TODO: (HW) - DONE
+Extend stage system to 3 levels x 3 stages (stage1-9) with helpers
+Add new enemy types (robot, robotElite, angel, seraph) + ranged attacks
+Add bosses: Colonel Muska (stage6) and God with skill cycle (stage9)
+EXP bar + weapon upgrade system (upgrade on level-boss defeat)
+Player dash skill + landing dust + weapon-scaled damage/animations
+Laputa & Heaven backgrounds, platform palettes, new sprites
+Update HUD (EXP bar, boss bars, stage names) and screens (banners, controls)
+Build and type-check
+
+
+TODO: 30/7
+Finish the drawing of player wizard
+Create a drawing of one own design pixel art(full picture)
