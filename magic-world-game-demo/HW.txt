@@ -19,3 +19,7 @@ Build and type-check
 TODO: 30/7
 Finish the drawing of player wizard
 Create a drawing of one own design pixel art(full picture)
+
+TODO: 13/8
+Finish the zombie drawing with 3 frame animation
+Wait for someone to edit your file
