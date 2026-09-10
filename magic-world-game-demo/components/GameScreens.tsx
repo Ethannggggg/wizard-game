@@ -133,9 +133,10 @@ export function TitleScreen({ onStart, onStartTestMode }: Pick<ScreenProps, "onS
             A powerful wizard must battle<br />
             through the enchanted forest,<br />
             storm the dark castle, soar to<br />
-            the floating isle of Laputa, and<br />
-            ascend the golden gates of Heaven<br />
-            to face the final god.
+            the floating isle of Laputa,<br />
+            ascend the golden gates of Heaven,<br />
+            dive into the deep sea, brave the<br />
+            volcano, and hack the AI mainframe.
           </p>
         </div>
 
@@ -302,7 +303,7 @@ export function WinScreen({ onRestart }: Pick<ScreenProps, "onRestart">) {
         <div style={{ width: "100%", height: 2, background: "linear-gradient(90deg,transparent,#22c55e,transparent)" }} />
 
         <p style={{ fontSize: 8, color: "#86efac", textAlign: "center", lineHeight: 2.5 }}>
-          THE DARK LORD, MUSKA,<br />AND GOD HAVE BEEN DEFEATED!
+          THE DARK LORD, MUSKA, GOD,<br />LEVIATHAN, IFRIT, AND THE AI CORE<br />HAVE BEEN DEFEATED!
         </p>
         <p style={{ fontSize: 7, color: "#9ca3af", textAlign: "center", lineHeight: 2.5 }}>
           The humans are safe.<br />
@@ -423,6 +424,15 @@ export function StageTransition({ stage }: { stage: Stage }) {
     stage7: "LEVEL 3-1 - GATES OF HEAVEN",
     stage8: "LEVEL 3-2 - GOLDEN CLOUDS",
     stage9: "LEVEL 3-3 - THRONE OF GOD",
+    stage10: "LEVEL 4-1 - SUNKEN DEPTHS",
+    stage11: "LEVEL 4-2 - ABYSSAL TRENCH",
+    stage12: "LEVEL 4-3 - LEVIATHAN'S LAIR",
+    stage13: "LEVEL 5-1 - VOLCANO BASE",
+    stage14: "LEVEL 5-2 - LAVA CAVERNS",
+    stage15: "LEVEL 5-3 - IFRIT'S FORGE",
+    stage16: "LEVEL 6-1 - SYSTEM BOOT",
+    stage17: "LEVEL 6-2 - CIRCUIT CORE",
+    stage18: "LEVEL 6-3 - AI MAINFRAME",
   }
   const label = labels[stage]
   if (!label) return null

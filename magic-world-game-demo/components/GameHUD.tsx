@@ -24,6 +24,24 @@ const stageNames: Record<string, string> = {
   stage7: "LEVEL 3-1 - Gates of Heaven",
   stage8: "LEVEL 3-2 - Golden Clouds",
   stage9: "LEVEL 3-3 - Throne of God",
+  stage10: "LEVEL 4-1 - Sunken Depths",
+  stage11: "LEVEL 4-2 - Abyssal Trench",
+  stage12: "LEVEL 4-3 - Leviathan's Lair",
+  stage13: "LEVEL 5-1 - Volcano Base",
+  stage14: "LEVEL 5-2 - Lava Caverns",
+  stage15: "LEVEL 5-3 - Ifrit's Forge",
+  stage16: "LEVEL 6-1 - System Boot",
+  stage17: "LEVEL 6-2 - Circuit Core",
+  stage18: "LEVEL 6-3 - AI Mainframe",
+}
+
+const bossDisplay: Record<string, { name: string; color: string; bar: string; barPhase2: string }> = {
+  darklord: { name: "DARK LORD", color: "#a855f7", bar: "linear-gradient(90deg,#4c1d95,#7c3aed)", barPhase2: "linear-gradient(90deg,#991b1b,#ef4444)" },
+  muska: { name: "COLONEL MUSKA", color: "#93c5fd", bar: "linear-gradient(90deg,#1e3a8a,#93c5fd)", barPhase2: "linear-gradient(90deg,#1e3a8a,#ef4444)" },
+  god: { name: "GOD", color: "#fbbf24", bar: "linear-gradient(90deg,#ca8a04,#fbbf24)", barPhase2: "linear-gradient(90deg,#b45309,#f59e0b)" },
+  leviathan: { name: "LEVIATHAN", color: "#38bdf8", bar: "linear-gradient(90deg,#0c4a6e,#38bdf8)", barPhase2: "linear-gradient(90deg,#0c4a6e,#ef4444)" },
+  ifrit: { name: "IFRIT", color: "#f97316", bar: "linear-gradient(90deg,#7c2d12,#f97316)", barPhase2: "linear-gradient(90deg,#7c2d12,#fef08a)" },
+  ai: { name: "AI CORE", color: "#22d3ee", bar: "linear-gradient(90deg,#164e63,#22d3ee)", barPhase2: "linear-gradient(90deg,#164e63,#ef4444)" },
 }
 
 function getMaxEnergy(stage: Stage): number {
@@ -302,50 +320,46 @@ export default function GameHUD({ gameState: gs, stage, testMode }: GameHUDProps
       </div>
 
       {/* Boss HP bar — bottom center */}
-      {isBossStage(stage) && boss && boss.state !== "dead" && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2" style={{ width: 360 }}>
-          <div
-            className="rounded px-3 py-2"
-            style={{
-              background: "rgba(0,0,0,0.9)",
-              border: `2px solid ${boss.bossKind === "muska" ? "#93c5fd" : boss.bossKind === "god" ? "#fbbf24" : "#7c3aed"}`,
-            }}
-          >
-            <div className="flex items-center justify-between mb-1.5">
-              <span style={{
-                fontSize: 8,
-                color: boss.bossKind === "muska" ? "#93c5fd" : boss.bossKind === "god" ? "#fbbf24" : "#a855f7",
-              }}>
-                {boss.bossKind === "muska" ? "COLONEL MUSKA" : boss.bossKind === "god" ? "GOD" : "DARK LORD"}
-                {boss.phase === 2 ? " - PHASE 2" : ""}
-              </span>
-              <span style={{ fontSize: 7, color: "#e9d5ff" }}>{boss.hp}/{boss.maxHp}</span>
-            </div>
+      {isBossStage(stage) && boss && boss.state !== "dead" && (() => {
+        const info = bossDisplay[boss.bossKind ?? "darklord"] ?? bossDisplay.darklord
+        return (
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2" style={{ width: 360 }}>
             <div
-              className="w-full rounded-sm overflow-hidden"
-              style={{ height: 14, background: "#1e1b4b", border: "2px solid #4c1d95" }}
+              className="rounded px-3 py-2"
+              style={{
+                background: "rgba(0,0,0,0.9)",
+                border: `2px solid ${info.color}`,
+              }}
             >
-              <div
-                className="h-full transition-all duration-150"
-                style={{
-                  width: `${(boss.hp / boss.maxHp) * 100}%`,
-                  background: boss.bossKind === "muska"
-                    ? (boss.phase === 2 ? "linear-gradient(90deg,#1e3a8a,#ef4444)" : "linear-gradient(90deg,#1e3a8a,#93c5fd)")
-                    : boss.bossKind === "god"
-                    ? (boss.phase === 2 ? "linear-gradient(90deg,#b45309,#f59e0b)" : "linear-gradient(90deg,#ca8a04,#fbbf24)")
-                    : (boss.phase === 2 ? "linear-gradient(90deg,#991b1b,#ef4444)" : "linear-gradient(90deg,#4c1d95,#7c3aed)"),
-                  boxShadow: boss.phase === 2 ? "0 0 10px #ef4444" : "0 0 10px #7c3aed",
-                }}
-              />
-            </div>
-            {boss.phase === 2 && (
-              <div className="mt-1 text-center">
-                <span style={{ fontSize: 6, color: "#ef4444" }}>*** ENRAGED ***</span>
+              <div className="flex items-center justify-between mb-1.5">
+                <span style={{ fontSize: 8, color: info.color }}>
+                  {info.name}
+                  {boss.phase === 2 ? " - PHASE 2" : ""}
+                </span>
+                <span style={{ fontSize: 7, color: "#e9d5ff" }}>{boss.hp}/{boss.maxHp}</span>
               </div>
-            )}
+              <div
+                className="w-full rounded-sm overflow-hidden"
+                style={{ height: 14, background: "#1e1b4b", border: "2px solid #4c1d95" }}
+              >
+                <div
+                  className="h-full transition-all duration-150"
+                  style={{
+                    width: `${(boss.hp / boss.maxHp) * 100}%`,
+                    background: boss.phase === 2 ? info.barPhase2 : info.bar,
+                    boxShadow: boss.phase === 2 ? "0 0 10px #ef4444" : `0 0 10px ${info.color}`,
+                  }}
+                />
+              </div>
+              {boss.phase === 2 && (
+                <div className="mt-1 text-center">
+                  <span style={{ fontSize: 6, color: "#ef4444" }}>*** ENRAGED ***</span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      })()}
 
       {/* Bottom-right: Controls legend */}
       <div
